@@ -1,4 +1,4 @@
-package com.Dessertion.src;
+package com.Dessertion.src.GameCore;
 
 import javax.swing.JFrame;
 

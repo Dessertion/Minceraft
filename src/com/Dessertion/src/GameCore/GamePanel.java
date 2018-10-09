@@ -1,4 +1,4 @@
-package com.Dessertion.src;
+package com.Dessertion.src.GameCore;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import com.Dessertion.Tiles.World;
+import com.Dessertion.src.Entities.Player;
 
 public class GamePanel extends JPanel implements ActionListener
 {
@@ -17,6 +19,7 @@ public class GamePanel extends JPanel implements ActionListener
 	private Timer timer;
 	private final int DELAY = 16;
 	private Player player;
+	private World world;
 	
 	public GamePanel() {
 	   init();
@@ -24,6 +27,8 @@ public class GamePanel extends JPanel implements ActionListener
 	
 	private void init() {
 	  
+	   world = new World(); 
+	    
 	   setFocusable(true);
 	   setDoubleBuffered(true);
 	   

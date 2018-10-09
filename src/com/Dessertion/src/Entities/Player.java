@@ -1,6 +1,7 @@
-package com.Dessertion.src;
+package com.Dessertion.src.Entities;
 
 import com.Dessertion.*;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -9,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class Player extends Sprite {
+public class Player extends Entity {
 
 	private int dx, dy;
 	
@@ -19,20 +20,15 @@ public class Player extends Sprite {
 		this.setY(0);
 	}
 	
-	public void render(Graphics g, ImageObserver obs) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(getImage(), getX(), getY(), obs);
-
+	@Override
+	public void move() {
+		this.setX(this.getX()+dx);
 	}
 	
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode==KeyEvent.VK_A)dx=-2;
 		if(keyCode==KeyEvent.VK_D)dx=2;
-	}
-	
-	public void move() {
-		this.setX(this.getX()+dx);
 	}
 	
 	public void keyReleased(KeyEvent e) {

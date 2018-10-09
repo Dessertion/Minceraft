@@ -1,8 +1,10 @@
-package com.Dessertion.src;
+package com.Dessertion.src.GameCore;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import com.Dessertion.src.Entities.Player;
 
 
 public class MyKeyListener implements KeyListener {

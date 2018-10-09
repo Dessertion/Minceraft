@@ -1,7 +1,11 @@
-package com.Dessertion.src;
+package com.Dessertion.src.GameCore;
 
 import com.Dessertion.*;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +23,7 @@ public class Sprite {
 	private URL url;
 	private String urlString = "src/com/Dessertion/resources";
 	
-	public Sprite(URL url) throws MalformedURLException {
+	public Sprite(URL url) {
 		this.url = url;
 		try {
 			loadImage(url);
@@ -91,6 +95,10 @@ public class Sprite {
 		this.image = image;
 	}
 	
-	
+	public void render(Graphics g, ImageObserver obs) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawImage(getImage(), getX(), getY(), obs);
+	}
+
 	
 }
