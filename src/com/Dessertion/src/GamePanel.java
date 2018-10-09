@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener
 	}
 	
 	private void init() {
-	   addKeyListener(new MyKeyListener());
+	  
 	   setFocusable(true);
 	   setDoubleBuffered(true);
 	   
@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements ActionListener
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	   }
+	   addKeyListener(new MyKeyListener(player));
 	   
 	   timer = new Timer(DELAY,this);
 	   timer.start();
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel implements ActionListener
 	}
 	
 	private void advance() {
+	   player.move();
 	   repaint();
 	 
 	}
