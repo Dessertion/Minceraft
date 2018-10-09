@@ -1,0 +1,9 @@
+1. implement blocks
+ 1a. implement block behaviour
+ 1b. implement block textures
+2. implement physics for player
+3. implement block destruction, placing
+4. implement inventory
+ 4a. implement inventory pickup
+ 4b. implement crafting
+5. implement player model
