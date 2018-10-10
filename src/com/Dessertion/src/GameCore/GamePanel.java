@@ -10,8 +10,8 @@ import java.net.MalformedURLException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.Dessertion.Tiles.World;
 import com.Dessertion.src.Entities.Player;
+import com.Dessertion.src.Tiles.World;
 
 public class GamePanel extends JPanel implements ActionListener
 {
@@ -27,17 +27,12 @@ public class GamePanel extends JPanel implements ActionListener
 	
 	private void init() {
 	  
-	   world = new World(); 
+	   world = new World("/world.bmp"); 
 	    
 	   setFocusable(true);
 	   setDoubleBuffered(true);
 	   
-	   try {
-		player = new Player();
-	   } catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	   }
+	   player = new Player();
 	   addKeyListener(new MyKeyListener(player));
 	   
 	   timer = new Timer(DELAY,this);
@@ -60,7 +55,9 @@ public class GamePanel extends JPanel implements ActionListener
 	private void render(Graphics g) {
 		//player.render(g, this);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		
+		world.render(g, this);
+		player.render(g,this);
 	}
 	
 	@Override

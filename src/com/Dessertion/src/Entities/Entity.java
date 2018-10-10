@@ -9,8 +9,8 @@ import com.Dessertion.src.GameCore.Sprite;
 
 public class Entity extends Sprite
 {
-	public Entity(URL url) {
-		super(url);
+	public Entity(String fileString) {
+		super(fileString);
 	}
 	
 

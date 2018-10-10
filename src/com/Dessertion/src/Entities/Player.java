@@ -13,12 +13,14 @@ import java.net.URL;
 public class Player extends Entity {
 
 	private int dx, dy;
-	
-	public Player() throws MalformedURLException {
-		super(Player.class.getClassLoader().getResource("com/Dessertion/resources/player.png"));
+	private static String fileString = "/player.png";
+	public Player() {
+		super(fileString);
 		this.setX(0);
 		this.setY(0);
 	}
+	
+	
 	
 	@Override
 	public void move() {

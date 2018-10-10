@@ -20,20 +20,18 @@ public class Sprite {
 	private int w;
 	private int h;
 	private BufferedImage image = null;
-	private URL url;
-	private String urlString = "src/com/Dessertion/resources";
+	public static  String urlString = "/com/Dessertion/resources";
 	
-	public Sprite(URL url) {
-		this.url = url;
+	public Sprite(String fileString) {
 		try {
-			loadImage(url);
+			loadImage(fileString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void loadImage(URL url) throws IOException {
-		image = ImageIO.read(url);
+	private void loadImage(String fileString) throws IOException {
+		image = ImageIO.read(getClass().getResource(urlString+fileString));
 		w = image.getWidth();
 		h = image.getHeight();
 	}
@@ -53,14 +51,6 @@ public class Sprite {
 
 	public void setH(int h) {
 		this.h = h;
-	}
-
-	public URL getUrl() {
-		return url;
-	}
-
-	public void setUrl(URL url) {
-		this.url = url;
 	}
 
 	public String getUrlString() {
