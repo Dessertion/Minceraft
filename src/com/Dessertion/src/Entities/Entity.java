@@ -13,8 +13,8 @@ public class Entity extends Sprite
 {	
 	
 	private static final double grav = 0.05;
-	private static double vy = 0;
-	private static boolean onGround = false;
+	private static double vy = 0, vx = 0;
+	private static boolean onGround = false, touchingTop = false, touchingLeft = false, touchingRight = false;
 	private static boolean jumping = false;
 	
 	public Entity(String fileString) {
@@ -22,14 +22,21 @@ public class Entity extends Sprite
 	}
 	
 	public void move() {
-		checkOnGround();
+		checkCollision();
 		int arrPos = World.getTile(getX(), getY());
+		
+		//handle jumping
 		if(onGround&&!jumping) {
-			vy=0;
+			Entity.vy=0;
 		}
 		else {
-		vy+=grav;
-		setY((int)(getY()+vy));
+		if(onGround&&jumping) {
+			Entity.vy=-2;
+		}
+		else {
+			Entity.vy+=grav;
+			setY((int)(getY()+vy));
+		}
 		}
 	}
 	
@@ -38,30 +45,90 @@ public class Entity extends Sprite
 	}
 	
 	public void setVy(double v) {
-		vy = v;
+		Entity.vy = v;
 	}
 	
 	public void setIsJumping(boolean flag) {
-		jumping = flag;
+		Entity.jumping = flag;
 	}
 	
 	public boolean isJumping() {
 		return jumping;
 	}
 	
-	private void checkOnGround() {
+	private void checkCollision() {
 		int calcY = getY() + getH(), calcX = getX() + getW();
+		int xcy = World.getTile(getX(), calcY), cxcy = World.getTile(calcX, calcY), xy = World.getTile(getX(), getY()),cxy = World.getTile(calcX, getY());
 		if(calcY>=GameFrame.HEIGHT) {
-			onGround=true;
-			return;
+			Entity.onGround=true;
+			Entity.vy=0;
 		}
-		int t1 = World.getTile(getX(), calcY), t2 = World.getTile(calcX, calcY);
-		if(!World.tiles[t1].isTransparent()||!World.tiles[t2].isTransparent())onGround = true;
-		else onGround = false;
+		else {
+			int l = World.getTile(getX(), calcY+5), r = World.getTile(calcX, calcY+5);
+			if(!World.tiles[l].isTransparent()||!World.tiles[r].isTransparent()) {
+				Entity.onGround = true;
+				Entity.vy=0;
+			}
+			else Entity.onGround = false;
+		}
+		
+		if(calcX>=GameFrame.WIDTH) {
+			Entity.touchingRight=true;
+		}
+		else {
+			int top = World.getTile(calcX+1, getY()), bot = World.getTile(calcX+1, calcY-1);
+			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent()) {
+				Entity.touchingRight=true;
+			}
+			else Entity.touchingRight=false;
+		}
+		
+		if(getX()<=0) {
+			Entity.touchingLeft=true;
+		}
+		else {
+			int top = World.getTile(getX()-1, getY()), bot = World.getTile(getX()-1, calcY-1);
+			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent())Entity.touchingLeft=true;
+			else Entity.touchingLeft = false;
+		}
+		
+		
 	}
 	
 	public boolean isOnGround() {
 		return onGround;
+	}
+
+	public boolean isTouchingTop() {
+		return touchingTop;
+	}
+
+	public void setTouchingTop(boolean touchingTop) {
+		Entity.touchingTop = touchingTop;
+	}
+
+	public boolean isTouchingLeft() {
+		return touchingLeft;
+	}
+
+	public void setTouchingLeft(boolean touchingLeft) {
+		Entity.touchingLeft = touchingLeft;
+	}
+
+	public boolean isTouchingRight() {
+		return touchingRight;
+	}
+
+	public void setTouchingRight(boolean touchingRight) {
+		Entity.touchingRight = touchingRight;
+	}
+
+	public double getVx() {
+		return vx;
+	}
+
+	public void setVx(double vx) {
+		Entity.vx = vx;
 	}
 	
 	

@@ -20,19 +20,24 @@ public class Player extends Entity {
 		this.setY(0);
 	}
 	
-	
+		
 	
 	@Override
 	public void move() {
 		super.move();
-		this.setX(this.getX()+dx);
+		if(!(this.getVx()>0&&this.isTouchingRight())&&!((this.getVx()<0)&&this.isTouchingLeft()))this.setX((int)(this.getX()+this.getVx()));
 		this.setY((int)(this.getY()+this.getVy()));
+		System.out.println(this.getVx());
 	}
 	
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		if(keyCode==KeyEvent.VK_A)dx=-2;
-		if(keyCode==KeyEvent.VK_D)dx=2;
+		if(keyCode==KeyEvent.VK_A) {
+			if(!this.isTouchingLeft())this.setVx(-2);
+		}
+		if(keyCode==KeyEvent.VK_D) {
+			if(!this.isTouchingRight())this.setVx(2);
+		}
 		//if(keyCode==KeyEvent.VK_S)this.setVy(this.getVy()+0.5);
 		if(keyCode==KeyEvent.VK_W) {
 			if(isOnGround()) {
@@ -44,8 +49,14 @@ public class Player extends Entity {
 	
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		if(keyCode == KeyEvent.VK_A)dx=0;
-		if(keyCode == KeyEvent.VK_D)dx=0;
+		if(keyCode == KeyEvent.VK_A) {
+			if(!this.isTouchingLeft()&&this.getVx()<0)this.setVx(this.getVx()+2);
+			else this.setVx(0);
+		}
+		if(keyCode == KeyEvent.VK_D) {
+			if(!this.isTouchingRight()&&this.getVx()>0)this.setVx(this.getVx()-2);
+			else this.setVx(0);
+		}
 		if(keyCode==KeyEvent.VK_W) {
 			this.setIsJumping(false);
 		}

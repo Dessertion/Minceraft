@@ -48,16 +48,8 @@ public class GamePanel extends JPanel implements ActionListener
 	
 	private void advance() {
 	   player.move();
-	   repaint();
+	   repaint(player.getX()-25,player.getY()-25,player.getW()+50,player.getH()+50);
 	 
-	}
-	
-	private void render(Graphics g) {
-		//player.render(g, this);
-		Graphics2D g2d = (Graphics2D) g;
-		
-		world.render(g, this);
-		player.render(g,this);
 	}
 	
 	@Override
@@ -68,6 +60,14 @@ public class GamePanel extends JPanel implements ActionListener
 		render(g);
 		
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void render(Graphics g) {
+		//player.render(g, this);
+		Graphics2D g2d = (Graphics2D) g;
+		
+		world.render(g, this);
+		player.render(g,this);
 	}
 }
  
