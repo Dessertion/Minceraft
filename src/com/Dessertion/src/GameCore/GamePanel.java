@@ -20,6 +20,8 @@ public class GamePanel extends JPanel implements ActionListener
 	private final int DELAY = 16;
 	private Player player;
 	private World world;
+	private MyKeyListener kl;
+	private MyMouseListener ml;
 	
 	public GamePanel() {
 	   init();
@@ -32,10 +34,13 @@ public class GamePanel extends JPanel implements ActionListener
 	   setFocusable(true);
 	   setDoubleBuffered(true);
 	   
-	   player = new Player();
-	   addKeyListener(new MyKeyListener(player));
-	   addMouseMotionListener(new MyMouseListener(player));
-	   addMouseListener(new MyMouseListener(player));
+	   player = new Player(world);
+	   kl = new MyKeyListener(player);
+	   ml = new MyMouseListener(player);
+	   
+	   addKeyListener(kl);
+	   addMouseMotionListener(ml);
+	   addMouseListener(ml);
 	   
 	   timer = new Timer(DELAY,this);
 	   timer.start();
@@ -50,8 +55,10 @@ public class GamePanel extends JPanel implements ActionListener
 	
 	private void advance() {
 	   player.move();
-	   if(player.isMousePressed()) {
-	       System.out.println(player.getMouseX() + " " + player.getMouseY() + " ||| " + player.getPrevMouseX() + " " + player.getPrevMouseY());
+	   if(world.RERENDER) {
+		   repaint();
+		   world.RERENDER = false;
+		   //System.out.println("fw");
 	   }
 	   repaint(player.getX()-25,player.getY()-25,player.getW()+50,player.getH()+50);
 	 
@@ -60,7 +67,6 @@ public class GamePanel extends JPanel implements ActionListener
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
 		
 		render(g);
 		
@@ -74,5 +80,7 @@ public class GamePanel extends JPanel implements ActionListener
 		world.render(g, this);
 		player.render(g,this);
 	}
+	
+	
 }
  

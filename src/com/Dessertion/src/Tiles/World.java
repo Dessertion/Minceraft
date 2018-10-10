@@ -18,6 +18,7 @@ public class World {
 	public static final int WIDTH_T = 16, HEIGHT_T = 12, MAX_T = WIDTH_T*HEIGHT_T, LEN = 50;
 	public static Tile[] tiles;
 	public static final int greenColorInt = Color.GREEN.getRGB();
+	public static boolean RERENDER = false;
 	private static int[] fileData;
 	private File worldBMP;
 	private BMPReader reader;
@@ -45,6 +46,10 @@ public class World {
 		}
 	}
 	
+	public void render(Graphics g, ImageObserver obs, int tile) {
+		tiles[tile].render(g, obs);
+	}
+	
 	private void init() {
 		for(int i = 0; i < MAX_T; i++) {
 			int tileColor = fileData[i];
@@ -66,6 +71,10 @@ public class World {
 	
 	public static int getTile(int x, int y) {
 		return (y/LEN)*WIDTH_T+(x/LEN);
+	}
+	
+	public void destroyTile(int tileNum) {
+		tiles[tileNum] = new TileAir();
 	}
 	
 }

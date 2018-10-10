@@ -16,9 +16,11 @@ public class Entity extends Sprite
 	private static double vy = 0, vx = 0;
 	private static boolean onGround = false, touchingTop = false, touchingLeft = false, touchingRight = false;
 	private static boolean jumping = false;
+	private static World world;
 	
-	public Entity(String fileString) {
+	public Entity(String fileString, World world) {
 		super(fileString);
+		this.world=world;
 	}
 	
 	public void move() {
@@ -61,7 +63,7 @@ public class Entity extends Sprite
 		int xcy = World.getTile(getX(), calcY), cxcy = World.getTile(calcX, calcY), xy = World.getTile(getX(), getY()),cxy = World.getTile(calcX, getY());
 		
 		//handle vertical detection
-		if(calcY>=GameFrame.HEIGHT) {
+		if(calcY+5>=GameFrame.HEIGHT) {
 			Entity.onGround=true;
 			Entity.vy=0;
 		}
@@ -138,6 +140,14 @@ public class Entity extends Sprite
 
 	public void setVx(double vx) {
 		Entity.vx = vx;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		Entity.world = world;
 	}
 	
 	
