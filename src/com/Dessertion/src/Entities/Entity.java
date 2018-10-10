@@ -59,19 +59,28 @@ public class Entity extends Sprite
 	private void checkCollision() {
 		int calcY = getY() + getH(), calcX = getX() + getW();
 		int xcy = World.getTile(getX(), calcY), cxcy = World.getTile(calcX, calcY), xy = World.getTile(getX(), getY()),cxy = World.getTile(calcX, getY());
+		
+		//handle vertical detection
 		if(calcY>=GameFrame.HEIGHT) {
 			Entity.onGround=true;
 			Entity.vy=0;
 		}
 		else {
-			int l = World.getTile(getX(), calcY+5), r = World.getTile(calcX, calcY+5);
-			if(!World.tiles[l].isTransparent()||!World.tiles[r].isTransparent()) {
+			int l = World.getTile(getX(), calcY+5), r = World.getTile(calcX, calcY+5), mid = World.getTile(getX() + getW()/2, getY()+5);
+			if(!World.tiles[l].isTransparent()||!World.tiles[r].isTransparent()||!World.tiles[mid].isTransparent()) {
 				Entity.onGround = true;
 				Entity.vy=0;
 			}
 			else Entity.onGround = false;
 		}
+		int l = World.getTile(getX(), getY()-5), r = World.getTile(calcX, getY()-5), m = World.getTile(getX() + getW()/2, getY()+5);
+		if(!World.tiles[l].isTransparent()||!World.tiles[r].isTransparent()||!World.tiles[m].isTransparent()) {
+			Entity.touchingTop=true;
+		}
+		else Entity.touchingTop=false;
 		
+		
+		//handle horizontal detection
 		if(calcX>=GameFrame.WIDTH) {
 			Entity.touchingRight=true;
 		}
@@ -91,7 +100,7 @@ public class Entity extends Sprite
 			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent()||!World.tiles[mid].isTransparent())Entity.touchingLeft=true;
 			else Entity.touchingLeft = false;
 		}
-		
+	
 		
 	}
 	
