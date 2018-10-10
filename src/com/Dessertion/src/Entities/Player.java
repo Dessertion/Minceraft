@@ -27,7 +27,6 @@ public class Player extends Entity {
 		super.move();
 		if(!(this.getVx()>0&&this.isTouchingRight())&&!((this.getVx()<0)&&this.isTouchingLeft()))this.setX((int)(this.getX()+this.getVx()));
 		this.setY((int)(this.getY()+this.getVy()));
-		System.out.println(this.getVx());
 	}
 	
 	public void keyPressed(KeyEvent e) {

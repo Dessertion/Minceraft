@@ -76,8 +76,8 @@ public class Entity extends Sprite
 			Entity.touchingRight=true;
 		}
 		else {
-			int top = World.getTile(calcX+1, getY()), bot = World.getTile(calcX+1, calcY-1);
-			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent()) {
+			int top = World.getTile(calcX+1, getY()), bot = World.getTile(calcX+1, calcY-1), mid = World.getTile(calcX+2, getY()+getH()/2);
+			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent()||!World.tiles[mid].isTransparent()) {
 				Entity.touchingRight=true;
 			}
 			else Entity.touchingRight=false;
@@ -87,8 +87,8 @@ public class Entity extends Sprite
 			Entity.touchingLeft=true;
 		}
 		else {
-			int top = World.getTile(getX()-1, getY()), bot = World.getTile(getX()-1, calcY-1);
-			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent())Entity.touchingLeft=true;
+			int top = World.getTile(getX()-1, getY()), bot = World.getTile(getX()-1, calcY-1), mid = World.getTile(getX()-2, getY()+getH()/2);
+			if(!World.tiles[top].isTransparent()||!World.tiles[bot].isTransparent()||!World.tiles[mid].isTransparent())Entity.touchingLeft=true;
 			else Entity.touchingLeft = false;
 		}
 		
