@@ -1,19 +1,16 @@
 package com.Dessertion.src.Entities;
 
-import com.Dessertion.*;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.awt.event.MouseEvent;
+
+import com.Dessertion.src.Tiles.World;
 
 
 public class Player extends Entity {
 	
-	private int dx,dy;
+	private int dx,dy, mx,my, prevmx, prevmy;
 	private static String fileString = "/player.png";
+	private boolean mousePressed = false;
 	public Player() {
 		super(fileString);
 		this.setX(0);
@@ -62,6 +59,60 @@ public class Player extends Entity {
 		}
 		//if(keyCode == KeyEvent.VK_S)this.setVy(this.getVy());
 		
+	}
+	
+	public void mousePressed(MouseEvent e) {
+	    this.mousePressed=true;
+	    this.setPrevMouseX(mx);
+	    this.setPrevMouseY(my);
+	    this.mx=e.getX();
+	    this.my=e.getY();
+	}
+	
+	public void mouseReleased(MouseEvent e) {
+	    this.mousePressed=false;
+	    //System.out.println("WFWFW");
+	}
+
+	public boolean isMousePressed() {
+	    return mousePressed;
+	}
+
+	public void setMousePressed(boolean mousePressed) {
+	    this.mousePressed = mousePressed;
+	}
+
+	
+	public int getMouseX() {
+	    return mx;
+	}
+	
+	public void setMouseX(int mouseX) {
+	    this.mx = mouseX;
+	}
+	
+	public int getMouseY() {
+	    return this.my;
+	}
+	
+	public void setMouseY(int mouseY) {
+	    this.my = mouseY;
+	}
+
+	public int getPrevMouseX() {
+	    return prevmx;
+	}
+
+	public void setPrevMouseX(int prevmx) {
+	    this.prevmx = prevmx;
+	}
+
+	public int getPrevMouseY() {
+	    return prevmy;
+	}
+
+	public void setPrevMouseY(int prevmy) {
+	    this.prevmy = prevmy;
 	}
 
 }

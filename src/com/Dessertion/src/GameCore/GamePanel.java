@@ -34,6 +34,8 @@ public class GamePanel extends JPanel implements ActionListener
 	   
 	   player = new Player();
 	   addKeyListener(new MyKeyListener(player));
+	   addMouseMotionListener(new MyMouseListener(player));
+	   addMouseListener(new MyMouseListener(player));
 	   
 	   timer = new Timer(DELAY,this);
 	   timer.start();
@@ -48,6 +50,9 @@ public class GamePanel extends JPanel implements ActionListener
 	
 	private void advance() {
 	   player.move();
+	   if(player.isMousePressed()) {
+	       System.out.println(player.getMouseX() + " " + player.getMouseY() + " ||| " + player.getPrevMouseX() + " " + player.getPrevMouseY());
+	   }
 	   repaint(player.getX()-25,player.getY()-25,player.getW()+50,player.getH()+50);
 	 
 	}
