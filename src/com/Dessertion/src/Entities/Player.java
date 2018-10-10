@@ -11,8 +11,8 @@ import java.net.URL;
 
 
 public class Player extends Entity {
-
-	private int dx, dy;
+	
+	private int dx,dy;
 	private static String fileString = "/player.png";
 	public Player() {
 		super(fileString);
@@ -24,19 +24,33 @@ public class Player extends Entity {
 	
 	@Override
 	public void move() {
+		super.move();
 		this.setX(this.getX()+dx);
+		this.setY((int)(this.getY()+this.getVy()));
 	}
 	
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode==KeyEvent.VK_A)dx=-2;
 		if(keyCode==KeyEvent.VK_D)dx=2;
+		//if(keyCode==KeyEvent.VK_S)this.setVy(this.getVy()+0.5);
+		if(keyCode==KeyEvent.VK_W) {
+			if(isOnGround()) {
+				this.setIsJumping(true);
+				this.setVy(-2);
+			}
+		}
 	}
 	
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_A)dx=0;
 		if(keyCode == KeyEvent.VK_D)dx=0;
+		if(keyCode==KeyEvent.VK_W) {
+			this.setIsJumping(false);
+		}
+		//if(keyCode == KeyEvent.VK_S)this.setVy(this.getVy());
+		
 	}
 
 }

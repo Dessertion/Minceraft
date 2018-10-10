@@ -15,7 +15,7 @@ import com.Dessertion.src.GameCore.Sprite;
 
 public class World {
 	
-	public final int WIDTH_T = 16, HEIGHT_T = 12, MAX_T = WIDTH_T*HEIGHT_T, LEN = 50;
+	public static final int WIDTH_T = 16, HEIGHT_T = 12, MAX_T = WIDTH_T*HEIGHT_T, LEN = 50;
 	public static Tile[] tiles;
 	public static final int greenColorInt = Color.GREEN.getRGB();
 	private static int[] fileData;
@@ -62,6 +62,10 @@ public class World {
 	private Tile handleColor(int c) { 
 		if(c==greenColorInt)return new TileGrass();
 		return new TileAir();
+	}
+	
+	public static int getTile(int x, int y) {
+		return (y/LEN)*WIDTH_T+(x/LEN);
 	}
 	
 }
