@@ -18,7 +18,7 @@ public class World {
 	
 	public static final int WIDTH_T = 16, HEIGHT_T = 12, MAX_T = WIDTH_T*HEIGHT_T, LEN = 50;
 	public static Tile[] tiles;
-	public static final int greenColorInt = Color.GREEN.getRGB();
+	public static final int greenColorInt = Color.GREEN.getRGB(), redColorInt = Color.RED.getRGB(), cyanColorInt = Color.CYAN.getRGB();
 	public static boolean RERENDER = false;
 	private static int[] fileData;
 	private File worldBMP;
@@ -67,6 +67,8 @@ public class World {
 	
 	private Tile handleColor(int c) { 
 		if(c==greenColorInt)return new TileGrass();
+		if(c==redColorInt)return new TileLog();
+		if(c==cyanColorInt)return new TileLeaves();
 		return new TileAir();
 	}
 	
