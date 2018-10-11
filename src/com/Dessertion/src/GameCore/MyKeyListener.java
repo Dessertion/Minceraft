@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import com.Dessertion.src.Entities.Player;
+import com.Dessertion.src.Entities.Player.Player;
 
 
 public class MyKeyListener implements KeyListener {

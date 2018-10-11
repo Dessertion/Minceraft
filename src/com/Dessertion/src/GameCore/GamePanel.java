@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.Dessertion.src.Entities.Player;
+import com.Dessertion.src.Entities.Player.Player;
 import com.Dessertion.src.Tiles.World;
 
 public class GamePanel extends JPanel implements ActionListener

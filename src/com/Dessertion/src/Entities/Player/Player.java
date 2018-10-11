@@ -1,8 +1,9 @@
-package com.Dessertion.src.Entities;
+package com.Dessertion.src.Entities.Player;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
+import com.Dessertion.src.Entities.Entity;
+import com.Dessertion.src.Entities.Player.Inventory.Inventory;
 import com.Dessertion.src.Tiles.World;
 
 
@@ -10,14 +11,14 @@ public class Player extends Entity {
 	
 
 	private static String fileString = "/player.png";
-
+	protected Inventory inventory;
 	public Player(World world) {
 		super(fileString,world);
 		this.setX(0);
 		this.setY(0);
+		this.inventory = new Inventory(this);
 	}
 	
-		
 	
 	@Override
 	public void move() {
@@ -60,6 +61,9 @@ public class Player extends Entity {
 	}
 	
 
+	public Inventory getInventory() {
+		return this.inventory;
+	}
 	
 
 }

@@ -1,11 +1,12 @@
 package com.Dessertion.src.GameCore;
 
 import java.awt.event.MouseEvent;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.event.MouseInputListener;
 
-import com.Dessertion.src.Entities.Player;
+import com.Dessertion.src.Entities.Player.Player;
+import com.Dessertion.src.Entities.Player.Inventory.ItemStack;
+import com.Dessertion.src.Entities.Player.Inventory.Material;
 import com.Dessertion.src.Tiles.Tile;
 import com.Dessertion.src.Tiles.TileAir;
 import com.Dessertion.src.Tiles.TileGrass;
@@ -46,6 +47,16 @@ public class MyMouseListener implements MouseInputListener{
 	    	this.setMouseTile(World.getTile(this.mx, this.my));
 	    }
 	    if(e.getButton() == e.BUTTON1&&!(World.tiles[mTile] instanceof TileAir)) {
+	    	Tile tile = World.tiles[mTile];
+	    	Material tileMaterial = Material.getMaterial(tile);
+	    	int slot = player.getInventory().checkForSlotType(tileMaterial);
+	    	if(slot>=0)player.getInventory().incrementItemSlot(slot);
+	    	else {
+	    		slot = player.getInventory().checkForEmptySlot();
+	    		if(slot>=0) {
+	    			player.getInventory().getInventory()[slot] = new ItemStack(tileMaterial);
+	    		}
+	    	}
 	    	player.getWorld().destroyTile(mTile);
 	    	player.getWorld().RERENDER=true;
 	    }
@@ -73,9 +84,6 @@ public class MyMouseListener implements MouseInputListener{
     public void mouseMoved(MouseEvent e) {
     	
     }
-    
-    
-    
     
     public boolean isMousePressed() {
 	    return mousePressed;
