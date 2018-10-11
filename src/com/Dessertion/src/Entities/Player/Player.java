@@ -12,6 +12,7 @@ public class Player extends Entity {
 
 	private static String fileString = "/player.png";
 	protected Inventory inventory;
+	protected int curSlot = 0;
 	public Player(World world) {
 		super(fileString,world);
 		this.setX(0);
@@ -63,6 +64,14 @@ public class Player extends Entity {
 
 	public Inventory getInventory() {
 		return this.inventory;
+	}
+	
+	public int getCurSlot() {
+		return this.curSlot;
+	}
+	
+	public void setCurSlot(int slot) {
+		if(slot<=9&&slot>=0)this.curSlot=slot;
 	}
 	
 

@@ -15,7 +15,6 @@ import com.Dessertion.src.Tiles.World;
 public class MyMouseListener implements MouseInputListener{
 	private int mx,my, prevmx, prevmy, mTile = 0;
 	private boolean mousePressed = false;
-	private Tile type = new TileGrass();
     MouseInputListener ml;
     Player player;
     public MyMouseListener(Player player) {
@@ -47,26 +46,34 @@ public class MyMouseListener implements MouseInputListener{
 	    	this.setMouseTile(World.getTile(this.mx, this.my));
 	    }
 	    if(e.getButton() == e.BUTTON1&&!(World.tiles[mTile] instanceof TileAir)) {
-	    	Tile tile = World.tiles[mTile];
-	    	Material tileMaterial = Material.getMaterial(tile);
-	    	int slot = player.getInventory().checkForSlotType(tileMaterial);
-	    	if(slot>=0)player.getInventory().incrementItemSlot(slot);
-	    	else {
-	    		slot = player.getInventory().checkForEmptySlot();
-	    		if(slot>=0) {
-	    			player.getInventory().getInventory()[slot] = new ItemStack(tileMaterial);
-	    		}
-	    	}
-	    	player.getWorld().destroyTile(mTile);
-	    	player.getWorld().RERENDER=true;
-	    }
-	    if(e.getButton() == e.BUTTON3&&World.tiles[mTile] instanceof TileAir) {
-	    	try {
-				player.getWorld().placeTile(mTile,type.getClass());
-			} catch (IllegalArgumentException | SecurityException e1) {
-				e1.printStackTrace();
+			Tile tile = World.tiles[mTile];
+			Material tileMaterial = Material.getMaterial(tile);
+			int slot = player.getInventory().checkForSlotType(tileMaterial);
+			if (slot >= 0)
+				player.getInventory().incrementItemSlot(slot);
+			else {
+				slot = player.getInventory().checkForEmptySlot();
+				if (slot >= 0) {
+					player.getInventory().getInventory()[slot] = new ItemStack(tileMaterial);
+				}
 			}
-	    	player.getWorld().RERENDER=true;
+			player.getWorld().destroyTile(mTile);
+			player.getWorld().RERENDER = true;
+		}
+	    
+	    
+	    
+	    if(e.getButton() == e.BUTTON3&&World.tiles[mTile] instanceof TileAir) {
+			if (player.getInventory().getItemSlot(player.getCurSlot()) != null) {
+				Tile tile = Material.getTile(player.getInventory().getItemSlot(player.getCurSlot()).getMaterial());
+				player.getInventory().decrementItemSlot(player.getCurSlot());
+				try {
+					player.getWorld().placeTile(mTile, tile.getClass());
+				} catch (IllegalArgumentException | SecurityException e1) {
+					e1.printStackTrace();
+				}
+				player.getWorld().RERENDER = true;
+			}
 	    }
     }
 

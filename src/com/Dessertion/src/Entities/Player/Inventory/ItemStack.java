@@ -10,6 +10,7 @@ public class ItemStack extends Sprite{
 	protected String fileString;
 	private int stackCount = 0;
 	private Material material;
+	private boolean destroyFlag = false; 
 	public ItemStack(String fileString) {
 		super(fileString);
 		this.fileString=fileString;
@@ -31,11 +32,14 @@ public class ItemStack extends Sprite{
 	public void setStackCount(int stackCount) {
 		this.stackCount = stackCount;
 	}
-	public void destroy() {
-		this.destroy();
+	public boolean getDestroyFlag() {
+		return destroyFlag;
+	}
+	public void setDestroyFlag(boolean flag) {
+		this.destroyFlag=flag;
 	}
 	public void decreaseStackCount(int decr) {
-		if(decr>=stackCount)this.destroy();
+		if(decr>=stackCount)this.setDestroyFlag(true);
 		else stackCount-=decr;
 	}
 	public void increaseStackCount(int incr) {
