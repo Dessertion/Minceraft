@@ -58,7 +58,7 @@ public class MyMouseListener implements MouseInputListener{
 				}
 			}
 			player.getWorld().destroyTile(mTile);
-			player.getWorld().RERENDER = true;
+			GamePanel.RERENDER = true;
 		}
 	    
 	    
@@ -72,7 +72,7 @@ public class MyMouseListener implements MouseInputListener{
 				} catch (IllegalArgumentException | SecurityException e1) {
 					e1.printStackTrace();
 				}
-				player.getWorld().RERENDER = true;
+				GamePanel.RERENDER = true;
 			}
 	    }
     }
