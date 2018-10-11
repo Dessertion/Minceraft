@@ -1,16 +1,20 @@
 package com.Dessertion.src.GameCore;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.event.MouseInputListener;
 
 import com.Dessertion.src.Entities.Player;
+import com.Dessertion.src.Tiles.Tile;
+import com.Dessertion.src.Tiles.TileAir;
+import com.Dessertion.src.Tiles.TileGrass;
 import com.Dessertion.src.Tiles.World;
 
 public class MyMouseListener implements MouseInputListener{
 	private int mx,my, prevmx, prevmy, mTile = 0;
 	private boolean mousePressed = false;
+	private Tile type = new TileGrass();
     MouseInputListener ml;
     Player player;
     public MyMouseListener(Player player) {
@@ -41,8 +45,16 @@ public class MyMouseListener implements MouseInputListener{
 	    if(this.mx>=0&&this.mx<=GameFrame.WIDTH&&this.my>=0&&this.my<=GameFrame.HEIGHT) {
 	    	this.setMouseTile(World.getTile(this.mx, this.my));
 	    }
-	    if(e.getButton() == e.BUTTON1) {
+	    if(e.getButton() == e.BUTTON1&&!(World.tiles[mTile] instanceof TileAir)) {
 	    	player.getWorld().destroyTile(mTile);
+	    	player.getWorld().RERENDER=true;
+	    }
+	    if(e.getButton() == e.BUTTON3&&World.tiles[mTile] instanceof TileAir) {
+	    	try {
+				player.getWorld().placeTile(mTile,type.getClass());
+			} catch (IllegalArgumentException | SecurityException e1) {
+				e1.printStackTrace();
+			}
 	    	player.getWorld().RERENDER=true;
 	    }
     }

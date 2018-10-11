@@ -58,7 +58,6 @@ public class GamePanel extends JPanel implements ActionListener
 	   if(world.RERENDER) {
 		   repaint();
 		   world.RERENDER = false;
-		   //System.out.println("fw");
 	   }
 	   repaint(player.getX()-25,player.getY()-25,player.getW()+50,player.getH()+50);
 	 

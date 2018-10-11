@@ -1,17 +1,18 @@
 package com.Dessertion.src.Tiles;
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
 import com.Dessertion.src.GameCore.BMPReader;
-import com.Dessertion.src.GameCore.GameFrame;
 import com.Dessertion.src.GameCore.Sprite;
+import com.Dessertion.src.Tiles.*;
 
 public class World {
 	
@@ -74,7 +75,20 @@ public class World {
 	}
 	
 	public void destroyTile(int tileNum) {
-		tiles[tileNum] = new TileAir();
+		Tile temp = new TileAir();
+		temp.setX(tiles[tileNum].getX()); temp.setY(tiles[tileNum].getY());
+		tiles[tileNum] = temp;
+	}
+	
+	public <T extends Tile> void placeTile(int tileNum, Class<T> tileType){
+		try {
+			Tile tile = tileType.getConstructor(null).newInstance();
+			tile.setX(tiles[tileNum].getX()); tile.setY(tiles[tileNum].getY());
+			tiles[tileNum] = tile;
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
