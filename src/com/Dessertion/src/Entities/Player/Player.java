@@ -1,9 +1,13 @@
 package com.Dessertion.src.Entities.Player;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.ImageObserver;
 
 import com.Dessertion.src.Entities.Entity;
 import com.Dessertion.src.Entities.Player.Inventory.Inventory;
+import com.Dessertion.src.Entities.Player.Inventory.InventoryGui;
+import com.Dessertion.src.Entities.Player.Inventory.Material;
 import com.Dessertion.src.Tiles.World;
 
 
@@ -13,11 +17,19 @@ public class Player extends Entity {
 	private static String fileString = "/player.png";
 	protected Inventory inventory;
 	protected int curSlot = 0;
+	protected InventoryGui GUI;
 	public Player(World world) {
 		super(fileString,world);
 		this.setX(0);
 		this.setY(0);
 		this.inventory = new Inventory(this);
+		this.GUI=new InventoryGui(this);
+	}
+	
+	@Override
+	public void render(Graphics g, ImageObserver obs) {
+		super.render(g, obs);
+		GUI.render(g, obs);
 	}
 	
 	
@@ -42,6 +54,14 @@ public class Player extends Entity {
 				this.setIsJumping(true);
 				this.setVy(-2);
 			}
+		}
+		if(keyCode>=KeyEvent.VK_0&&keyCode<=KeyEvent.VK_9) {
+			if(keyCode==KeyEvent.VK_0)this.curSlot=1;
+			else this.curSlot=(keyCode-KeyEvent.VK_1);
+		}
+		//haha crafting amirite
+		if(keyCode==KeyEvent.VK_C&&inventory.getItemSlot(curSlot).getMaterial()==Material.LOG) {
+			
 		}
 	}
 	
@@ -73,6 +93,7 @@ public class Player extends Entity {
 	public void setCurSlot(int slot) {
 		if(slot<=9&&slot>=0)this.curSlot=slot;
 	}
-	
-
+	public InventoryGui getInventoryGui() {
+		return this.GUI;
+	}
 }

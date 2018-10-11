@@ -65,6 +65,7 @@ public class GamePanel extends JPanel implements ActionListener
     	   RERENDER=true;
        }
 	   player.move();
+	   player.getInventoryGui().update();
 	   cycle.move(time);
 	   if(RERENDER) {
 		   repaint();
@@ -72,6 +73,7 @@ public class GamePanel extends JPanel implements ActionListener
 	   }
 	   repaint(player.getX()-25,player.getY()-25,player.getW()+50,player.getH()+50);
 	   repaint((int)cycle.getX()-20,(int)cycle.getY()-20,140,140);
+	   repaint(player.getInventoryGui().getHotbarX(),player.getInventoryGui().getHotbarY(),player.getInventoryGui().getHotbarImage().getWidth(),player.getInventoryGui().getHotbarImage().getHeight());
 	}
 	
 	@Override
