@@ -15,16 +15,28 @@ public class ItemStack extends Sprite {
 	public ItemStack(String fileString) {
 		super(fileString);
 		this.fileString = fileString;
-		stackCount = 1;
+		this.stackCount = 1;
+	}
+	public ItemStack(String fileString, int num) {
+		this(fileString);
+		this.stackCount=num;
 	}
 
 	public ItemStack(Material material) {
 		this(getFileString(material));
 		this.material = material;
 	}
+	public ItemStack(Material material, int num) {
+		this(material);
+		this.stackCount=num;
+	}
 
 	public ItemStack(Tile tile) {
 		this(Material.getMaterial(tile));
+	}
+	public ItemStack(Tile tile, int num) {
+		this(tile);
+		this.stackCount=num;
 	}
 
 	public Material getMaterial() {
@@ -48,10 +60,9 @@ public class ItemStack extends Sprite {
 	}
 
 	public void decreaseStackCount(int decr) {
-		if (decr >= stackCount)
+		if (decr >= stackCount||stackCount<=0)
 			this.setDestroyFlag(true);
-		else
-			stackCount -= decr;
+		stackCount -= decr;
 	}
 
 	public void increaseStackCount(int incr) {
@@ -69,6 +80,9 @@ public class ItemStack extends Sprite {
 			break;
 		case LEAVES:
 			thing = thing + "itemLeaves";
+			break;
+		case WOOD:
+			thing = thing + "itemWood";
 			break;
 		default:
 			thing = thing + "noTexture";

@@ -65,6 +65,7 @@ public class GamePanel extends JPanel implements ActionListener
     	   RERENDER=true;
        }
 	   player.move();
+	   player.getInventory().update();
 	   player.getInventoryGui().update();
 	   cycle.move(time);
 	   if(RERENDER) {

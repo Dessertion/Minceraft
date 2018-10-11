@@ -24,7 +24,11 @@ public class Inventory {
 	}
 	public void decrementItemSlot(int slot) {
 		invenArr[slot].decreaseStackCount(1);
-		if(invenArr[slot].getDestroyFlag())invenArr[slot]=null;
+	}
+	public void update() {
+		for(int i = 0 ; i < 10 ; i++) {
+			if(invenArr[i]!=null&&invenArr[i].getDestroyFlag())invenArr[i]=null;
+		}
 	}
 	public int checkForEmptySlot() {
 		for(int i = 0; i < 10 ; i++) {

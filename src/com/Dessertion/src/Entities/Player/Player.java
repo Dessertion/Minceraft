@@ -7,6 +7,7 @@ import java.awt.image.ImageObserver;
 import com.Dessertion.src.Entities.Entity;
 import com.Dessertion.src.Entities.Player.Inventory.Inventory;
 import com.Dessertion.src.Entities.Player.Inventory.InventoryGui;
+import com.Dessertion.src.Entities.Player.Inventory.ItemStack;
 import com.Dessertion.src.Entities.Player.Inventory.Material;
 import com.Dessertion.src.Tiles.World;
 
@@ -60,8 +61,21 @@ public class Player extends Entity {
 			else this.curSlot=(keyCode-KeyEvent.VK_1);
 		}
 		//haha crafting amirite
-		if(keyCode==KeyEvent.VK_C&&inventory.getItemSlot(curSlot).getMaterial()==Material.LOG) {
-			
+		if (keyCode == KeyEvent.VK_C && inventory.getItemSlot(curSlot) != null
+				&& inventory.getItemSlot(curSlot).getMaterial() == Material.LOG) {
+			int slot = inventory.checkForSlotType(Material.WOOD);
+			if (slot >= 0) {
+				inventory.getInventory()[slot].increaseStackCount(16);
+				inventory.getInventory()[curSlot].decreaseStackCount(1);
+			} else {
+				slot = inventory.checkForEmptySlot();
+				if (slot >= 0) {
+
+					inventory.getItemSlot(curSlot).decreaseStackCount(1);
+					inventory.getInventory()[slot] = new ItemStack(Material.WOOD,16);
+					
+				}
+			}
 		}
 	}
 	
